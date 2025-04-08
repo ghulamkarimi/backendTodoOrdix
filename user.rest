@@ -1,0 +1,27 @@
+#### login user
+POST  http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "alikarimi@example.com",
+  "password": "123456"
+}
+
+
+#### user register 
+POST  http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "Ali Karimi",
+  "email": "alikarimi@example.com",
+  "password": "123456"
+}
+
+#### logout user
+POST  http://localhost:5000/api/auth/logout
+Content-Type: application/json
+
+{}
+
+

@@ -1,0 +1,7 @@
+Flask
+Flask-Cors
+Flask-Session
+Flask-SQLAlchemy
+python-dotenv
+pymysql
+cryptography

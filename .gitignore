@@ -1,0 +1,24 @@
+# Bytecode-Dateien
+__pycache__/
+*.py[cod]
+
+# Flask-Session-Dateien
+flask_session/
+
+# Umgebung & virtuelle Umgebungen
+.venv/
+env/
+venv/
+
+# Environment-Dateien
+.env
+
+# Test- und Debug-Dateien
+*.log
+
+# VS Code-Einstellungen (optional)
+.vscode/
+
+# Sonstiges
+*.sqlite3
+*.db
