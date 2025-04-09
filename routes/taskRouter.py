@@ -9,7 +9,7 @@ from controllers.taskController import (
 task_bp = Blueprint('task_bp', __name__)
 
 # Alle Aufgaben holen
-task_bp.route('/', methods=['GET'])(get_all_tasks)
+task_bp.route('/all', methods=['GET'])(get_all_tasks)
 
 # Neue Aufgabe erstellen
 task_bp.route('/', methods=['POST'])(create_task)

@@ -1,4 +1,6 @@
-GET http://localhost:5000/api/tasks
+
+#### alle Aufgaben auflisten
+GET http://localhost:5000/api/tasks/all
 Content-Type: application/json
 
 
@@ -7,22 +9,25 @@ POST http://localhost:5000/api/tasks
 Content-Type: application/json
 
 {
-  "title": "Kapitel 5 durcharbeiten",
-  "description": "Kapitel 5 durcharbeiten und die Übungen lösen",
-  "due_date": "2025-04-10T15:00:00"
+  "title": "Kapitel 6 lernen",
+  "description": "Redux Toolkit verstehen",
+  "due_date": "2025-04-10T17:00:00",
+  "list_id": 1
 }
 
+
 #### Aufgabe löschen
-DELETE http://localhost:5000/api/tasks/2
+DELETE http://localhost:5000/api/tasks/1
 Content-Type: application/json
 
 
 #### aufgabe bearbeiten
-PUT http://localhost:5000/api/tasks/3
+PUT http://localhost:5000/api/tasks/1
 Content-Type: application/json
 
 {
   "title": "Kapitel 2 durcharbeiten",
   "description": "Kapitel 2 durcharbeiten und die Übungen lösen und die Lösungen abgeben",
-  "due_date": "2025-04-10T15:00:00"
+  "due_date": "2025-04-10T15:00:00",
+  "is_completed": false
 }

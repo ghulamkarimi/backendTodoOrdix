@@ -1,7 +1,5 @@
 from flask import request, jsonify, session
-
 from models.userModel import User, db
- 
 
 # Registrierung eines neuen Benutzers
 def register_user():
@@ -30,6 +28,10 @@ def register_user():
 
     return jsonify({'message': 'Benutzer erfolgreich registriert.'}), 201
 
+# Benutzerinformationen abrufen
+def get_users():
+    users = User.query.all()
+    return jsonify([user.to_dict() for user in users]), 200
 
 # Benutzer einloggen
 def login_user():
@@ -44,10 +46,23 @@ def login_user():
 
     # Session speichern
     session['user_id'] = user.id
-
+    print(f"Session-ID: {session.sid}, User-ID: {session['user_id']}")
     return jsonify({'message': 'Login erfolgreich.', 'user': user.to_dict()}), 200
 
 # Benutzer ausloggen
 def logout_user():
+    print(f"Session vor Logout: {session}")  # Debug-Ausgabe
     session.pop('user_id', None)
+    print(f"Session nach Logout: {session}")  # Debug-Ausgabe
     return jsonify({'message': 'Logout erfolgreich.'}), 200
+
+# Eingeloggten Benutzer abrufen
+def get_logged_in_user():
+    print(f"Session in get_logged_in_user: {session}")  # Debug-Ausgabe
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({'error': 'Nicht eingeloggt.'}), 401
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'error': 'Benutzer nicht gefunden.'}), 404
+    return jsonify({'user': user.to_dict()}), 200

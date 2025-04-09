@@ -14,6 +14,7 @@ class Task(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    list_id = db.Column(db.Integer, db.ForeignKey('lists.id'))  # ✅ Hier die Beziehung
 
     def to_dict(self):
         return {
@@ -24,6 +25,8 @@ class Task(db.Model):
             'is_completed': self.is_completed,
             'created_at': self.created_at.isoformat() if self.created_at else None,
             'updated_at': self.updated_at.isoformat() if self.updated_at else None,
-            'user_id': self.user_id
+            'user_id': self.user_id,
+            'list_id': self.list_id  # ✅ Auch im Dictionary zurückgeben
         }
+
 

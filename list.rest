@@ -2,13 +2,14 @@ POST http://localhost:5000/api/lists
 Content-Type: application/json
 
 {
-  "name": "My List",
+  "name": "personlich",
   "description": "This is my list",
-  "color": "#00ccff"
+  "color": "#00ccff",
+  "user_id": 1
 }
 
 #### delete list
-DELETE http://localhost:5000/api/lists/2
+DELETE http://localhost:5000/api/lists/3
 Content-Type: application/json
 
 #### get all lists
