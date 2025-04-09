@@ -30,8 +30,8 @@ Content-Type: application/json
 
 {
   "email": "karimiamirhossein12@gmail.com",
-  "code": "489503",          
-  "new_password": "NeuesSicheresPasswort2024"
+  "code": "394082",          
+  "new_password": "Sara.2020"
 }
 
 

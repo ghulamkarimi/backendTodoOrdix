@@ -75,24 +75,47 @@ def request_password_reset():
     user.reset_code_expiration = datetime.utcnow() + timedelta(minutes=10)
     db.session.commit()
 
-  
     subject = "Passwort zurücksetzen"
     body = f"Hier ist dein Bestätigungscode zum Zurücksetzen deines Passworts: {code}\n\nDieser Code ist 10 Minuten gültig."
 
     try:
         msg = Message(subject=subject, recipients=[email], body=body)
         mail.send(msg)
-        return jsonify({'message': 'Code per E-Mail gesendet '})
+        return jsonify({'message': 'Code per E-Mail gesendet'}), 200
     except Exception as e:
         return jsonify({'error': f'E-Mail-Fehler: {str(e)}'}), 500
     
     
 # zahl generieren für Passwort zurücksetzen    
 def generate_reset_code():
-    return str(random.randint(100000, 999999))    
+    return str(random.randint(100000, 999999))   
+
+
+# code überprüfen 
     
-# Passwort zurücksetzen (Token validieren und neues Passwort setzen)    
-    
+def verify_reset_code():
+    data = request.get_json()
+    email = data.get('email')
+    code = data.get('code')
+
+    if not email or not code:
+        return jsonify({'error': 'E-Mail und Code sind erforderlich'}), 400
+
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'error': 'E-Mail nicht gefunden'}), 404
+
+    print(f"Debug: Gesendeter Code: {code}, Gespeicherter Code: {user.reset_code}, Ablauf: {user.reset_code_expiration}")
+    if str(user.reset_code) != str(code):
+        return jsonify({'error': 'Ungültiger Code'}), 400
+    if user.reset_code_expiration < datetime.utcnow():
+        return jsonify({'error': 'Code ist abgelaufen'}), 400
+
+    return jsonify({'message': 'Code ist gültig'}), 200
+
+
+# Passwort zurücksetzen mit dem Code
+
 def reset_password_by_code():
     data = request.get_json()
     email = data.get('email')
@@ -103,7 +126,7 @@ def reset_password_by_code():
         return jsonify({'error': 'Alle Felder sind erforderlich'}), 400
 
     user = User.query.filter_by(email=email).first()
-    if not user or user.reset_code != code:
+    if not user or str(user.reset_code) != str(code):
         return jsonify({'error': 'Ungültiger Code'}), 400
 
     if user.reset_code_expiration < datetime.utcnow():
