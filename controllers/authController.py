@@ -1,5 +1,13 @@
-from flask import request, jsonify, session
+ 
+from datetime import datetime, timedelta
+from flask import request, jsonify, session, url_for
+from flask_mail import Message
+from extention.extention import mail
 from models.userModel import User, db
+import random
+
+
+
 
 # Registrierung eines neuen Benutzers
 def register_user():
@@ -48,6 +56,66 @@ def login_user():
     session['user_id'] = user.id
     print(f"Session-ID: {session.sid}, User-ID: {session['user_id']}")
     return jsonify({'message': 'Login erfolgreich.', 'user': user.to_dict()}), 200
+
+
+# Passwort zurücksetzen
+def request_password_reset():
+    data = request.get_json()
+    email = data.get('email')
+
+    if not email:
+        return jsonify({'error': 'E-Mail ist erforderlich'}), 400
+
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({'error': 'Kein Benutzer mit dieser E-Mail gefunden'}), 404
+
+    code = generate_reset_code()
+    user.reset_code = code
+    user.reset_code_expiration = datetime.utcnow() + timedelta(minutes=10)
+    db.session.commit()
+
+  
+    subject = "Passwort zurücksetzen"
+    body = f"Hier ist dein Bestätigungscode zum Zurücksetzen deines Passworts: {code}\n\nDieser Code ist 10 Minuten gültig."
+
+    try:
+        msg = Message(subject=subject, recipients=[email], body=body)
+        mail.send(msg)
+        return jsonify({'message': 'Code per E-Mail gesendet '})
+    except Exception as e:
+        return jsonify({'error': f'E-Mail-Fehler: {str(e)}'}), 500
+    
+    
+# zahl generieren für Passwort zurücksetzen    
+def generate_reset_code():
+    return str(random.randint(100000, 999999))    
+    
+# Passwort zurücksetzen (Token validieren und neues Passwort setzen)    
+    
+def reset_password_by_code():
+    data = request.get_json()
+    email = data.get('email')
+    code = data.get('code')
+    new_password = data.get('new_password')
+
+    if not email or not code or not new_password:
+        return jsonify({'error': 'Alle Felder sind erforderlich'}), 400
+
+    user = User.query.filter_by(email=email).first()
+    if not user or user.reset_code != code:
+        return jsonify({'error': 'Ungültiger Code'}), 400
+
+    if user.reset_code_expiration < datetime.utcnow():
+        return jsonify({'error': 'Code ist abgelaufen'}), 400
+
+    user.set_password(new_password)
+    user.reset_code = None
+    user.reset_code_expiration = None
+    db.session.commit()
+
+    return jsonify({'message': 'Passwort erfolgreich zurückgesetzt ✅'}), 200
+
 
 # Benutzer ausloggen
 def logout_user():

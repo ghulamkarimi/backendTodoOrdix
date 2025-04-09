@@ -2,6 +2,15 @@ from flask import request, jsonify, session
 from models.taskModel import Task, db
 from models.listModel import List
 
+
+
+def check_auth():
+    if 'user_id' not in session:
+        return jsonify({'error': 'Nicht eingeloggt'}), 401
+    return None
+
+
+
 # Alle Aufgaben des eingeloggten Benutzers (optional gefiltert nach Liste)
 def get_all_tasks():
     user_id = session.get('user_id') or session.get('user_id')

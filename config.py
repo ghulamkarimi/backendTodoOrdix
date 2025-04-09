@@ -31,3 +31,9 @@ class Config:
     SESSION_COOKIE_SECURE = False
     SESSION_COOKIE_DOMAIN = "localhost"
     SECRET_KEY = os.getenv("SECRET_KEY") or "a-very-secret-key"
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = os.getenv("MAIL_USERNAME")        
+    MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")         
+    MAIL_DEFAULT_SENDER = os.getenv("MAIL_USERNAME")   

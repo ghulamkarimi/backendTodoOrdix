@@ -5,3 +5,5 @@ Flask-SQLAlchemy
 python-dotenv
 pymysql
 cryptography
+flask-mail
+itsdangerous

@@ -16,6 +16,24 @@ Content-Type: application/json
 GET http://localhost:5000/api/auth/users
 Content-Type: application/json
 
+#### request password reset
+POST  http://localhost:5000/api/auth/request-reset
+Content-Type: application/json
+
+{
+  "email": "karimiamirhossein12@gmail.com"
+}
+
+#### reset password
+POST  http://localhost:5000/api/auth/reset-password
+Content-Type: application/json
+
+{
+  "email": "karimiamirhossein12@gmail.com",
+  "code": "489503",          
+  "new_password": "NeuesSicheresPasswort2024"
+}
+
 
 #### user register 
 POST  http://localhost:5000/api/auth/register

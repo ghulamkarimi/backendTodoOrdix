@@ -8,7 +8,7 @@ import time
 import pymysql
 import os
 from sqlalchemy.sql import text
-
+from extention.extention import mail
 # Import Blueprints
 from routes.authRouter import auth_bp
 from routes.taskRouter import task_bp
@@ -18,6 +18,7 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config.from_object(Config)
+mail.init_app(app) 
 
 # Init extensions
 
