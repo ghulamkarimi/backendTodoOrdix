@@ -76,10 +76,56 @@ def request_password_reset():
     db.session.commit()
 
     subject = "Passwort zurücksetzen"
-    body = f"Hier ist dein Bestätigungscode zum Zurücksetzen deines Passworts: {code}\n\nDieser Code ist 10 Minuten gültig."
+    html_body = f"""
+    <html>
+        <head>
+            <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    line-height: 1.6;
+                    color: #333;
+                    max-width: 600px;
+                    margin: 0 auto;
+                    padding: 20px;
+                }}
+                .container {{
+                    background-color: #f9f9f9;
+                    padding: 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                }}
+                .code {{
+                    background-color: #e0e0e0;
+                    padding: 8px 16px;
+                    border-radius: 4px;
+                    font-size: 1.2em;
+                    font-weight: bold;
+                    display: inline-block;
+                    margin: 10px 0;
+                }}
+                .footer {{
+                    font-size: 0.9em;
+                    color: #666;
+                    margin-top: 20px;
+                }}
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h2>Passwort zurücksetzen</h2>
+                <p>Hier ist dein Bestätigungscode zum Zurücksetzen deines Passworts:</p>
+                <div class="code">{code}</div>
+                <p>Dieser Code ist <strong>10 Minuten</strong> gültig.</p>
+                <div class="footer">
+                    <p>Falls du diese Anfrage nicht gestellt hast, ignoriere diese E-Mail bitte.</p>
+                </div>
+            </div>
+        </body>
+     </html>
+     """
 
     try:
-        msg = Message(subject=subject, recipients=[email], body=body)
+        msg = Message(subject=subject, recipients=[email], html=html_body)
         mail.send(msg)
         return jsonify({'message': 'Code per E-Mail gesendet'}), 200
     except Exception as e:
