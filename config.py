@@ -29,7 +29,7 @@ class Config:
     PERMANENT_SESSION_LIFETIME = timedelta(days=1)
     SESSION_COOKIE_SAMESITE = "lax"
     SESSION_COOKIE_SECURE = False
-    SESSION_COOKIE_DOMAIN = "localhost"
+    # SESSION_COOKIE_DOMAIN = "localhost"
     SECRET_KEY = os.getenv("SECRET_KEY") or "a-very-secret-key"
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587

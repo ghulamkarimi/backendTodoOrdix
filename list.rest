@@ -5,7 +5,7 @@ Content-Type: application/json
   "name": "personlich",
   "description": "This is my list",
   "color": "#00ccff",
-  "user_id": 1
+  "user_id": 2
 }
 
 #### delete list

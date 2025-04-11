@@ -54,6 +54,7 @@ def login_user():
 
     # Session speichern
     session['user_id'] = user.id
+    session.permanent = True  # Session bleibt auch nach dem Schließen des Browsers bestehen
     print(f"Session-ID: {session.sid}, User-ID: {session['user_id']}")
     return jsonify({'message': 'Login erfolgreich.', 'user': user.to_dict()}), 200
 

@@ -3,7 +3,7 @@ POST  http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "karimiamirhossein12@gmail.com",
+  "email": "karimiamirhossein102@gmail.com",
   "password": "Sara.2020"
 }
 
@@ -40,8 +40,8 @@ POST  http://localhost:5000/api/auth/register
 Content-Type: application/json
 
 {
-  "username": "Ghulam",
-  "email": "karimiamirhossein12@gmail.com",
+  "username": "Ghulami",
+  "email": "karimiamirhossein102@gmail.com",
   "password": "Sara.2020"
 }
 

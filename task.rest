@@ -9,10 +9,10 @@ POST http://localhost:5000/api/tasks
 Content-Type: application/json
 
 {
-  "title": "Kapitel 6 lernen",
-  "description": "Redux Toolkit verstehen",
-  "due_date": "2025-04-10T17:00:00",
-  "list_id": 1
+  "title": "Kapitel 4 lernen",
+  "description": "Docker und Flask lernen",
+  "due_date": "2025-05-25T17:00:00",
+  "list_id": 2
 }
 
 
