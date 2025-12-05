@@ -9,10 +9,10 @@ POST http://localhost:5000/api/tasks
 Content-Type: application/json
 
 {
-  "title": "Kapitel 4 lernen",
-  "description": "Docker und Flask lernen",
+  "title": "Docker und Flask lernen",
+  "description": "Docker und Flask lernen und ein kleines Projekt damit umsetzen",
   "due_date": "2025-05-25T17:00:00",
-  "list_id": 2
+  "list_id": 1
 }
 
 
@@ -29,5 +29,5 @@ Content-Type: application/json
   "title": "Kapitel 2 durcharbeiten",
   "description": "Kapitel 2 durcharbeiten und die Übungen lösen und die Lösungen abgeben",
   "due_date": "2025-04-10T15:00:00",
-  "is_completed": false
+  "is_completed": true
 }
