@@ -9,15 +9,15 @@ POST http://localhost:5000/api/tasks
 Content-Type: application/json
 
 {
-  "title": "Docker und Flask lernen",
-  "description": "Docker und Flask lernen und ein kleines Projekt damit umsetzen",
-  "due_date": "2025-05-25T17:00:00",
-  "list_id": 1
+  "title": "Software Bibliothek in Java Sprache erstellen",
+  "description": "Lese die aufgabe Beschreibung sorgfältig durch und erstelle eine Software Bibliothek in Java Sprache",
+  "list_id": 1,
+  "due_date": "2025-12-05T12:00:00"
 }
 
 
 #### Aufgabe löschen
-DELETE http://localhost:5000/api/tasks/1
+DELETE http://localhost:5000/api/tasks/3
 Content-Type: application/json
 
 
